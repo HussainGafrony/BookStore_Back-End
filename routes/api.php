@@ -28,6 +28,11 @@ Route::post('/app/register', 'API\V1\UserController@register');
 
 Route::middleware(['auth:api'])->group(function () {
 
+    // Notification Route
+
+    Route::get('/notify/{userToken}','API\V1\UserController@notifyUser');
+
+
 //Category Route
 
     Route::get('/categories/index', 'API\V1\CategoryController@index');
@@ -80,5 +85,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     //search book
     Route::get('/books/searchBook/{something}', 'API\V1\BookController@searchBook');
+
+
 
 });
