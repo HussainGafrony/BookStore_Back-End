@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Book;
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -69,6 +70,7 @@ class BookController extends Controller
         $new_books->description = $request->description;
         $new_books->review = $request->review;
         $new_books->save();
+        UserController::notifyUser($new_books);
         return response()->json($new_books);
     }
 

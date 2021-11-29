@@ -28,9 +28,9 @@ Route::post('/app/register', 'API\V1\UserController@register');
 
 Route::middleware(['auth:api'])->group(function () {
 
-    // Notification Route
+    // test of notifying all user
 
-    Route::get('/notify/{userToken}','API\V1\UserController@notifyUser');
+    Route::get('/notify/{book}','API\V1\UserController@notifyUser');
 
 
 //Category Route
