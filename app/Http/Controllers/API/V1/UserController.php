@@ -62,31 +62,22 @@ class UserController extends Controller
     public static function notifyUser($book)
     {
 
-        $query1 = DB::select('select * from profiles', []);
-        $result_of_query1 = array_map(
-            function ($value) {
-                return (array)$value;
-            },
-            $query1
-        );
-        $users_ntf_tokens = [];
-        foreach ($result_of_query1 as &$value) {
-            $ntf_token = $value['fcm_token'];
-            array_push($users_ntf_tokens, $ntf_token);
-        }
-        return response()->json($users_ntf_tokens);
-
+        $user_token = Profile::get()->except(Auth::id());
+     $tokens=[];
+     foreach ($user_token as $profile){
+         array_push($tokens,$profile->fcm_token);
+     }
 //          $getTokenOwnerData = Profile::where('fcm_token', $book)->with('user')->first();
 
         $SERVER_API_KEY = 'AAAAbPgDazc:APA91bFSRgAe8O8pDZ8JGgsprQt6mVTlVj_HiKMnwTHzc4tLDRXpegVyKMfAgv14sc6ClWi9WpMjIGlLTuXF65IlV3jtdSPNmJ3PMpeqmE8uNTDBYqypN2La7U8ovdQW1LBl2KtvA9NK';
         $data = [
-            "registration_ids" => $users_ntf_tokens,
+            "registration_ids" => $tokens,
             "notification" => [
                 //"title" => "Dear ".$getTokenOwnerData->user->name." Attention",
                 //"body" => Auth::user()->name." Visited Your Profile",
                 "sound" => true,
                 // 'image' => $request->image_url
-                "title" => "Dear User, Check Our New Book",
+                "title" => "Dear User  Check Our New Book",
                 "body" => "A " . $book->name . "With Just Only " . $book->price . " $, Be Our First Buyer.",
             ],
             "data" => [

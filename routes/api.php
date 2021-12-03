@@ -86,6 +86,6 @@ Route::middleware(['auth:api'])->group(function () {
     //search book
     Route::get('/books/searchBook/{something}', 'API\V1\BookController@searchBook');
 
-
+    Route::get('/books/{something}', 'API\V1\UserController@notifyUser');
 
 });
