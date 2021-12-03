@@ -18,6 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/books/store', 'API\V1\BookController@store');
+
+
+
 //App Route
 
 Route::post('/app/login', 'API\V1\UserController@login');
@@ -28,9 +32,7 @@ Route::post('/app/register', 'API\V1\UserController@register');
 
 Route::middleware(['auth:api'])->group(function () {
 
-    // test of notifying all user
 
-    Route::get('/notify/{book}','API\V1\UserController@notifyUser');
 
 
 //Category Route
@@ -47,7 +49,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::get('/books/index', 'API\V1\BookController@index');
 
-    Route::post('/books/store', 'API\V1\BookController@store');
+
 
     Route::get('/books/show/{id}', 'API\V1\BookController@show');
 
@@ -85,6 +87,12 @@ Route::middleware(['auth:api'])->group(function () {
 
     //search book
     Route::get('/books/searchBook/{something}', 'API\V1\BookController@searchBook');
+
+
+
+    // test of notifying all user
+
+    Route::get('/notify/{book}','API\V1\UserController@notifyUser');
 
     Route::get('/books/{something}', 'API\V1\UserController@notifyUser');
 
