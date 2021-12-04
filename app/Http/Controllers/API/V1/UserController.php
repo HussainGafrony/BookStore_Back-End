@@ -38,13 +38,12 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-
-        return User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'api_token' => Str::random(80),
-        ]);
+            $user = new User();
+            $user->name=$request->name;
+            $user->email=$request->email;
+            $user->password=Hash::make($request->password);
+            $user->api_token=Str::random(80);
+            $user->save();
         $profile = new Profile();
 
         $profile->user_id = $user->id;
