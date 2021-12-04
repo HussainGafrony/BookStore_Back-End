@@ -38,14 +38,13 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-            $user = new User();
-            $user->name=$request->name;
-            $user->email=$request->email;
-            $user->password=Hash::make($request->password);
-            $user->api_token=Str::random(80);
-            $user->save();
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->api_token = Str::random(80);
+        $user->save();
         $profile = new Profile();
-
         $profile->user_id = $user->id;
         $profile->fcm_token = $request->fcm_token;
         $profile->save();
@@ -62,10 +61,10 @@ class UserController extends Controller
     {
 
         $user_token = Profile::get()->except(Auth::id());
-     $tokens=[];
-     foreach ($user_token as $profile){
-         array_push($tokens,$profile->fcm_token);
-     }
+        $tokens = [];
+        foreach ($user_token as $profile) {
+            array_push($tokens, $profile->fcm_token);
+        }
 //          $getTokenOwnerData = Profile::where('fcm_token', $book)->with('user')->first();
 
         $SERVER_API_KEY = 'AAAAbPgDazc:APA91bFSRgAe8O8pDZ8JGgsprQt6mVTlVj_HiKMnwTHzc4tLDRXpegVyKMfAgv14sc6ClWi9WpMjIGlLTuXF65IlV3jtdSPNmJ3PMpeqmE8uNTDBYqypN2La7U8ovdQW1LBl2KtvA9NK';
